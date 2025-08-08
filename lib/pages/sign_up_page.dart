@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tasker/services/api_service.dart';
 import 'package:tasker/utilities.dart';
 
+import '../di.dart';
+
 @RoutePage()
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -12,7 +14,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  ApiService apiService = ApiService();
+  ApiService apiService = sl<ApiService>();
 
   @override
   Widget build(BuildContext context) {
