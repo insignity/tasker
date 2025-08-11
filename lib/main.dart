@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasker/blocs/log_in/log_in_bloc.dart';
 import 'package:tasker/di.dart';
 import 'package:tasker/router/app_router.dart';
 
 import 'blocs/sign_up/sign_up_bloc.dart';
 
-void main() {
+void main() async  {
   ///Allows flutter to wait before [runApp()]
   WidgetsFlutterBinding.ensureInitialized();
-  initializeInstances();
+  await initializeInstances();
   runApp(const MyApp());
 }
 
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
     final appRouter = AppRouter();
 
     return MultiBlocProvider(
-      providers: [BlocProvider<SignUpBloc>(create: (_) => sl())],
+      providers: [
+        BlocProvider<SignUpBloc>(create: (_) => sl()),
+        BlocProvider<LogInBloc>(create: (_) => sl()),
+      ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),
 

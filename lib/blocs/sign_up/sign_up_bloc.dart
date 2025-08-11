@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tasker/services/api_service.dart';
+
+import '../../services/api/api_service.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  final ApiService api;
+  final Api api;
   SignUpBloc(this.api) : super(SignUpInitial()) {
     on<SignUpEvent>((event, emit) async {
       if (event is SignUp) {
