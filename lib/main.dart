@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker/blocs/log_in/log_in_bloc.dart';
 import 'package:tasker/di.dart';
 import 'package:tasker/router/app_router.dart';
+import 'package:tasker/router/router_observer.dart';
 import 'utilities.dart';
 import 'blocs/sign_up/sign_up_bloc.dart';
 
-void main() async  {
+void main() async {
   ///Allows flutter to wait before [runApp()]
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeInstances();
+  await injectDependencies();
 
   l.i("data");
   l.t("data");
@@ -33,8 +34,14 @@ class MyApp extends StatelessWidget {
         BlocProvider<LogInBloc>(create: (_) => sl()),
       ],
       child: MaterialApp.router(
-        routerConfig: appRouter.config(),
-
+        routerDelegate: appRouter.delegate(
+          navigatorObservers: () => [RouterObserver()],
+        ),
+        routeInformationParser: appRouter.defaultRouteParser(
+          includePrefixMatches: true,
+        ),
+        routeInformationProvider: appRouter.routeInfoProvider(),
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

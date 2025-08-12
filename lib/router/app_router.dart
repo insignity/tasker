@@ -6,8 +6,7 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(
-      // initial: true,
-      path: '/navigation_bar',
+      path: '/',
       page: NavigationBarRoute.page,
       children: [
         RedirectRoute(path: '', redirectTo: 'home'),
@@ -16,7 +15,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SignUpRoute.page, path: 'sign_up'),
       ],
     ),
-    AutoRoute(page: LogInRoute.page, path: '/login', initial: true),
+    AutoRoute(page: LogInRoute.page, path: '/login'),
     AutoRoute(page: ProfileRoute.page, path: '/profile')
   ];
 }

@@ -14,7 +14,8 @@ import 'utilities.dart';
 
 final sl = GetIt.instance;
 
-Future initializeInstances() async {
+Future injectDependencies() async {
+  l.d("Inject dependencies");
   final prefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton<Logger>(()=>l);
   ///Services
@@ -30,4 +31,5 @@ Future initializeInstances() async {
   ///Interceptor
   sl.registerLazySingleton<LogInterceptor>(() => LogInterceptor());
   sl.registerLazySingleton<TokenInterceptor>(() => TokenInterceptor(sl()));
+  l.d("Dependencies were injected");
 }
