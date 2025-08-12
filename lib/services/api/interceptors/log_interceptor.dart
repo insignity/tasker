@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:tasker/utilities.dart';
 
 class LogInterceptor extends Interceptor {
+  static const line = "=================";
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    l.d('********************** Request **********************');
+    l.d('$line Request $line');
     l.i('uri: ${options.uri.toString()}');
     l.i('method: ${options.method}');
     l.i('  responseType: ${options.responseType.toString()}');
@@ -18,14 +19,14 @@ class LogInterceptor extends Interceptor {
     l.i('headers:');
     options.headers.forEach((key, v) => l.i('  $key: $v'));
     l.i('data:');
-    l.d('********************** End Request **********************');
+    l.d('$line End Request $line');
 
     super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    l.d('********************** Response **********************');
+    l.d('$line Response $line');
     l.i('uri: ${response.requestOptions.uri}');
     l.i('statusCode: ${response.statusCode}');
     l.i('  redirect: ${response.realUri}');
@@ -33,16 +34,19 @@ class LogInterceptor extends Interceptor {
     response.headers.forEach((key, v) => l.i('  $key: $v'));
     l.i('Response Text:');
     l.i(response.toString());
-    l.d('********************** End Response **********************');
+    l.d('$line End Response $line');
     super.onResponse(response, handler);
   }
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    print("error je ejje");
-    l.e(
-      'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
-    );
+    l.e('$line Error $line:');
+    l.e('uri: ${err.requestOptions.uri}');
+    l.e('$err');
+      if (err.response != null) {
+        l.e(err.response!);
+      }
+    l.e('$line End Error$line:');
     super.onError(err, handler);
   }
 }
