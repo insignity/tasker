@@ -12,7 +12,7 @@ class TokenInterceptor extends Interceptor{
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final token = storage.getToken();
     if(token != null){
-      options.headers.addAll({"Bearer token": token});
+      options.headers.addAll({"Authorization": token});
     }
     super.onRequest(options, handler);
   }

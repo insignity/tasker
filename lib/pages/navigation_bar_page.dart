@@ -12,6 +12,8 @@ class NavigationBarPage extends StatefulWidget {
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
 
+
+
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
